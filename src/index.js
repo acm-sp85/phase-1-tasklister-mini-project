@@ -8,7 +8,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const button1 = document.getElementById('button1');
   const tasksArr = [];
 
-  button1.addEventListener('click', renderTasks);
+  button1.addEventListener('click', renderAscending);
+  button2.addEventListener('click', renderDescending);
   
 
 
@@ -76,19 +77,35 @@ function renderTasks(){
 
             }
           }
+ 
+}
 
 
-  //ordering the objects in the array by their Order value
+function renderAscending(){
+
+  renderTasks();
   tasksArr.sort(function(a,b){
     return a.order - b.order;
   });
   console.log(tasksArr);
   printOrderedTasks(tasksArr);
           
-  //create lis for each task
-
- 
 }
+
+
+function renderDescending(){
+
+  renderTasks();
+  tasksArr.sort(function(a,b){
+    return b.order - a.order;
+  });
+  console.log(tasksArr);
+  printOrderedTasks(tasksArr);
+          
+
+}
+
+
 
 
 function printOrderedTasks (array){
@@ -105,6 +122,8 @@ function printOrderedTasks (array){
   }
 
 }
+
+
 
 
   
