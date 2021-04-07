@@ -36,6 +36,13 @@ button {
   box-shadow: 2px 5px 5px #333;
 }
 
-LI {
+
+.red {
   color: red;
+}
+.orange {
+  color: rgb(255, 196, 0);
+}
+.green {
+  color: green;
 }

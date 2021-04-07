@@ -1,52 +1,114 @@
+
+
 document.addEventListener("DOMContentLoaded", () => {
-//picking the FORM by its ID and adding it to a variable for easy access
-  let submit = document.getElementById('create-task-form')
+
+  const submit = document.getElementById('create-task-form');
+  const dropDownStatus = document.getElementById("priority");
+  const clicking = document.getElementById('tasks');
+  const button1 = document.getElementById('button1');
+  const tasksArr = [];
+
+  button1.addEventListener('click', renderTasks);
   
-//we are going to add a series of actions to the SUBMIT input, the first of which will be to cancel its default action
-//pointer to our UL in the DOM
-//we are gonna create an LI that will later be appended to out UL
-//the value of that new LI is what we are receiving from the form
-  submit.addEventListener('submit', function(event){
-  event.preventDefault();
 
-  const ul = document.getElementById('tasks')
-  const li = document.createElement('li')
 
-  li.innerText = document.getElementById('new-task-description').value;
+  dropDownStatus.addEventListener('change', function(event){
+    dropDownStatus.className = priorityColor(dropDownStatus.value)
+  })
 
-  ul.append(li)
- 
-  });
-
-/* we have to add an event listener to our LI items. it should delete the clicked LI item. To do so we are 
-going to select the UL by its ID and then add an event listener to it that will have a function that will remove 
-the clicked LI and log a message saying which LI was deleted. 
-*/
-
-  let clicking = document.getElementById('tasks')
+  submit.addEventListener('submit', handleSubmit);
 
   clicking.addEventListener('click',function(event){
     console.log(`${event.target.innerText} has been removed`)
     event.target.remove();
-    
 
   })
 
-  if(value==="high"){
 
-  } else if ( value==="medium"){
+function priorityColor(priority){
+  switch(priority){
+    case "high":
+      return "red"
+    case "medium":
+      return "orange"
+    case "low":
+      return "green"
+    default: return;
+  }
+}
 
-  } else {
-    
+function handleSubmit(event){
+  event.preventDefault();
+  const ul = document.getElementById('tasks')
+  const li = document.createElement('li')
+  li.innerText = document.getElementById('new-task-description').value;
+  li.className = priorityColor(dropDownStatus.value)
+  ul.append(li)
+  //create task object
+  const objectOfTasks = {task: li.innerText, priority: dropDownStatus.value};
+  // push into tasks array
+  tasksArr.push(objectOfTasks);
+  console.log(objectOfTasks);
+  console.log(tasksArr);
+  // render tasks
+
+
+
+  event.target.reset();
+}
+
+function renderTasks(){
+  //clear UL
+  const ul = document.getElementById('tasks')
+  while(ul.firstChild) ul.removeChild(ul.firstChild);
+  // iterate over tasks priority
+
+  //iterating the array and adding a numerical value Order depending on their priority
+  for (const priorities of tasksArr){
+      if (priorities.priority === "high"){
+        priorities.order = 1;
+
+      }else if (priorities.priority === "medium"){
+        priorities.order = 2;
+
+          } else if (priorities.priority === "low"){
+            priorities.order = 3;
+
+            }
+          }
+
+
+  //ordering the objects in the array by their Order value
+  tasksArr.sort(function(a,b){
+    return a.order - b.order;
+  });
+  console.log(tasksArr);
+  printOrderedTasks(tasksArr);
+          
+  //create lis for each task
+
+ 
+}
+
+
+function printOrderedTasks (array){
+
+  for (let i=0 ; i< array.length ; i++){
+
+    const ul = document.getElementById('tasks')
+    const li = document.createElement('li')
+    li.className = priorityColor(array[i].priority);
+    li.innerText = array[i].task;
+    ul.append(li)
+
+
   }
 
+}
 
 
-
-
+  
 
 
 
 });
-
-
