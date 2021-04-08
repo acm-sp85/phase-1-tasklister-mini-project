@@ -43,7 +43,16 @@ function handleSubmit(event){
   const ul = document.getElementById('tasks')
   const li = document.createElement('li')
   li.innerText = document.getElementById('new-task-description').value;
+  li.name = document.getElementById('asign-to').value;
   li.className = priorityColor(dropDownStatus.value)
+  
+  // const table = document.createElement('table')
+  // const row = table.insertRow(0);
+  // const cell1 = row.insertCell(0);
+  // document.getElementById('list').append(table)
+  // row.innerText = li.name;
+  // cell1.innerText = "li";
+  
   ul.append(li)
   //create task object
   const objectOfTasks = {task: li.innerText, priority: dropDownStatus.value};
@@ -51,6 +60,7 @@ function handleSubmit(event){
   tasksArr.push(objectOfTasks);
   console.log(objectOfTasks);
   console.log(tasksArr);
+  console.log(li.name);
   // render tasks
 
 
